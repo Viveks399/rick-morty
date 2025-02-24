@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDebounce } from "react-use";
 
 const Main = () => {
+  const inputRef = useRef();
   const navigate = useNavigate();
   const [debouncedterm, setDebouncedTerm] = useState("");
   const [name, setName] = useState("");
@@ -38,6 +39,7 @@ const Main = () => {
   };
 
   useEffect(() => {
+    inputRef.current.focus();
     fetchDetails();
   }, [debouncedterm]);
 
@@ -58,6 +60,7 @@ const Main = () => {
 
         <div className="flex flex-col items-center space-y-3 w-full">
           <input
+            ref={inputRef}
             type="text"
             value={name}
             onChange={handleNameChange}
